@@ -1,9 +1,10 @@
-@wip
+
 Feature: Home Enquiry Form
 
   Background:
     Given the user is on the enquiry form page
 
+  @wip
   Scenario:Duplicate Occupation
     Given The user enters occupation
     When The user chooses to enter another occupation
