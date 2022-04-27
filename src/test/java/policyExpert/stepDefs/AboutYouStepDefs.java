@@ -32,13 +32,12 @@ public class AboutYouStepDefs {
 
 
     @Given("The user enters occupation")
-    public void the_User_Enters_Occupation(){
+    public void the_User_Enters_Occupation() throws InterruptedException {
         WebElement occupation = Driver.get().findElement(By.xpath("//input[@name='occupation']"));
         occupation.sendKeys("Software Engineer");
 
         WebElement dropdownOptions=Driver.get().findElement(By.xpath("//li[@role='option']"));
-        WebDriverWait wait=new WebDriverWait(Driver.get(), 5);
-        wait.until(ExpectedConditions.visibilityOf(dropdownOptions));
+        Thread.sleep(3000);
         dropdownOptions.click();
 
         String occupationEntered= occupation.getAttribute("value");
@@ -69,19 +68,22 @@ public class AboutYouStepDefs {
     @When("The occupation is the same with the first entered one")
     public void the_occupation_is_the_same_with_the_first_entered_one() {
 
-        WebElement occupation = Driver.get().findElement(By.xpath("//input[@name='occupation']"));
+       WebElement occupation = Driver.get().findElement(By.xpath("//input[@name='occupation']"));
 
+       WebElement secondOccupation=Driver.get().findElement(By.xpath("//input[@name='occupation_part_time']"));
+       secondOccupation.sendKeys("Software Engineer");
+       WebElement dropdownOptions=Driver.get().findElement(By.xpath("//li[@role='option']"));
 
-        WebElement dropdownOptions=Driver.get().findElement(By.xpath("//li[@role='option']"));
-        WebDriverWait wait=new WebDriverWait(Driver.get(), 5);
-        wait.until(ExpectedConditions.visibilityOf(dropdownOptions));
-        dropdownOptions.click();
+       WebDriverWait wait=new WebDriverWait(Driver.get(), 5);
+       wait.until(ExpectedConditions.visibilityOf(dropdownOptions));
+       dropdownOptions.click();
 
 
         String occupationEntered= occupation.getAttribute("value");
-        WebElement secondOccupation=Driver.get().findElement(By.xpath("//input[@name='occupation_part_time']"));
-        String secondOccupationEntered= secondOccupation.getAttribute("value");
 
+
+        String secondOccupationEntered= secondOccupation.getAttribute("value");
+        Assert.assertEquals(occupationEntered, secondOccupationEntered);
 
     }
 
